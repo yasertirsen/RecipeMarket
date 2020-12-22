@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "694148381097",
+    "project_id": "recipemarket-a13d8",
+    "storage_bucket": "recipemarket-a13d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694148381097:android:8de6eccc6a6cac431d2cb8",
+        "android_client_info": {
+          "package_name": "com.example.recipemarket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "694148381097-ekiver4943vherr9f883esqhfvr9cein.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVsQg-gJAa5sM4ZsKqBX-avf14iNYh_BA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "694148381097-ekiver4943vherr9f883esqhfvr9cein.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
