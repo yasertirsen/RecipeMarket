@@ -28,4 +28,12 @@
     <string name="write_your_note_here">Write Your Note Here</string>
     <string name="tag">Tag</string>
     <string name="search">Search</string>
+    <string name="tab_text_1">Supermarkets</string>
+    <string name="tab_text_2">Recipes</string>
+    <string name="tab_text_3">Discover</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="saved_supermarkets">Saved Supermarkets</string>
+    <string name="saved_recipes">Saved Recipes</string>
+    <string name="discover_supermarkets_near_you">Discover Supermarkets Near You!</string>
 </resources>
