@@ -36,4 +36,6 @@
     <string name="saved_supermarkets">Saved Supermarkets</string>
     <string name="saved_recipes">Saved Recipes</string>
     <string name="discover_supermarkets_near_you">Discover Supermarkets Near You!</string>
+    <string name="save">Save</string>
+    <string name="opening_hours">Opening Hours</string>
 </resources>

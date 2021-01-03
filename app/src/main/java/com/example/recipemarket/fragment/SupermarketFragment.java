@@ -2,6 +2,8 @@ package com.example.recipemarket.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -16,6 +18,8 @@ import com.example.recipemarket.R;
  * create an instance of this fragment.
  */
 public class SupermarketFragment extends Fragment {
+
+    private View mView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +65,13 @@ public class SupermarketFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_supermarket, container, false);
+        mView = inflater.inflate(R.layout.fragment_supermarket, container, false);
+        return mView;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 }

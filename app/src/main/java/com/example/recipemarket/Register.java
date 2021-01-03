@@ -122,16 +122,4 @@ public class Register extends AppCompatActivity {
                     });
         }
     }
-
-//    private void saveInRtDb() {
-//        //store user in RT DB
-//        String id = db.push().getKey();
-//
-//        User user = new User(email, password, username, address);
-//
-//        assert id != null;
-//        db.child(id).setValue(user);
-//
-//        Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
-//    }
 }

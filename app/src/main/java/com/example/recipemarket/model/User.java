@@ -1,4 +1,4 @@
-package com.example.recipemarket;
+package com.example.recipemarket.model;
 
 public class User {
     private String email;
