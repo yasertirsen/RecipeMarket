@@ -262,6 +262,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     public void saveSupermarket() {
         Map<String, Object> supermarketMap = new HashMap<>();
+        supermarketMap.put("placeId", supermarket.getPlaceId());
         supermarketMap.put("name", supermarket.getName());
         supermarketMap.put("address", supermarket.getAddress());
         supermarketMap.put("lat", supermarket.getLat());

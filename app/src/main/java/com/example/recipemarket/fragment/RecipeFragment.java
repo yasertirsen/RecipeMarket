@@ -1,14 +1,19 @@
 package com.example.recipemarket.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.recipemarket.R;
+import com.example.recipemarket.SearchRecipes;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +21,9 @@ import com.example.recipemarket.R;
  * create an instance of this fragment.
  */
 public class RecipeFragment extends Fragment {
+
+    private View mView;
+    private Button btnSearchRecipes;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +69,23 @@ public class RecipeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipe, container, false);
+        mView = inflater.inflate(R.layout.fragment_recipe, container, false);
+        return mView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        btnSearchRecipes = (Button) mView.findViewById(R.id.btnSearchRecipes);
+
+        btnSearchRecipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchRecipes.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

@@ -99,6 +99,8 @@ public class ViewSupermarket extends AppCompatActivity {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getApplicationContext(), "Supermarket saved", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), Home.class);
+                    startActivity(intent);
                 }
             });
             return true;

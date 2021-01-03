@@ -1,16 +1,32 @@
 package com.example.recipemarket.fragment;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.recipemarket.R;
+import com.example.recipemarket.adapter.SupermarketAdapter;
+import com.example.recipemarket.model.Supermarket;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +36,11 @@ import com.example.recipemarket.R;
 public class SupermarketFragment extends Fragment {
 
     private View mView;
+    private FirebaseFirestore fStore;
+    private ArrayList<Supermarket> supermarkets = new ArrayList<>();
+    private ArrayList<String> supermarketIds = new ArrayList<>();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private SupermarketAdapter mAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -73,5 +94,48 @@ public class SupermarketFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        fStore = FirebaseFirestore.getInstance();
+        fStore.collection("user_supermarket")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for(QueryDocumentSnapshot doc: task.getResult()) {
+                                if(doc.getData().get("user_id").equals(user.getUid())) {
+                                    supermarketIds.add((String)doc.getData().get("supermarket_id"));
+                                }
+                            }
+                        }
+                    }
+                });
+        fStore.collection("supermarkets")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for(QueryDocumentSnapshot doc: task.getResult()) {
+                            if(supermarketIds.contains(doc.getId())) {
+                                Supermarket supermarket = doc.toObject(Supermarket.class);
+                                supermarkets.add(supermarket);
+                            }
+                        }
+                        setUpRcv();
+                    }
+                });
+    }
+
+    public void setUpRcv() {
+        RecyclerView mRecyclerView = (RecyclerView) mView.findViewById(R.id.rvSupermarkets);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+        mAdapter = new SupermarketAdapter(supermarkets);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL) {
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                // Do not draw the divider
+            }
+        });
+        mRecyclerView.setAdapter(mAdapter);
     }
 }

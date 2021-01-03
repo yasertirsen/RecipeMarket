@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.RecipeFragment">
+    tools:context=".fragment.RecipeFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <Button
+        android:id="@+id/btnSearchRecipes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/saved_recipes" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_bg"
+        android:text="@string/search_recipes"
+        android:textColor="#000000"
+        android:textStyle="bold" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tvSavedRecipes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/saved_recipes"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>
