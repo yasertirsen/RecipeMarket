@@ -11,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.recipemarket.FindRecipes;
 import com.example.recipemarket.R;
-import com.example.recipemarket.SearchRecipes;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,8 +24,14 @@ import com.example.recipemarket.SearchRecipes;
  */
 public class RecipeFragment extends Fragment {
 
+    public static final String CARBS = "CARBS";
+    public static final String PROTEIN = "PROTEIN";
+    public static final String FAT = "FAT";
     private View mView;
-    private Button btnSearchRecipes;
+    private EditText etCarbs;
+    private EditText etProtein;
+    private EditText etFat;
+    private Button btnFindRecipes;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,13 +85,26 @@ public class RecipeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btnSearchRecipes = (Button) mView.findViewById(R.id.btnSearchRecipes);
+        etCarbs = (EditText) mView.findViewById(R.id.etCarbs);
+        etProtein = (EditText) mView.findViewById(R.id.etProtein);
+        etFat = (EditText) mView.findViewById(R.id.etFat);
+        btnFindRecipes = (Button) mView.findViewById(R.id.btnFindRecipes);
 
-        btnSearchRecipes.setOnClickListener(new View.OnClickListener() {
+        btnFindRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SearchRecipes.class);
-                startActivity(intent);
+                String carbs = etCarbs.getText().toString();
+                String protein = etProtein.getText().toString();
+                String fat = etFat.getText().toString();
+                if(carbs.matches("") || protein.matches("") || fat.matches(""))
+                    Toast.makeText(getContext(), "Please fill all macros", Toast.LENGTH_SHORT).show();
+                else {
+                    Intent intent = new Intent(getContext(), FindRecipes.class);
+                    intent.putExtra(CARBS, carbs);
+                    intent.putExtra(PROTEIN, protein);
+                    intent.putExtra(FAT, fat);
+                    startActivity(intent);
+                }
             }
         });
 

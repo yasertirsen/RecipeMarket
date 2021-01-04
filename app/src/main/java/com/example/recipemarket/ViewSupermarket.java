@@ -3,8 +3,11 @@ package com.example.recipemarket;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +37,8 @@ public class ViewSupermarket extends AppCompatActivity {
     private TextView tvName;
     private TextView tvAddress;
     private TextView tvOpHrs;
+    private TextView tvRating;
+    private TextView tvWebsite;
     private FirebaseFirestore fStore;
     private Supermarket supermarket;
     private DocumentSnapshot doc;
@@ -47,11 +52,15 @@ public class ViewSupermarket extends AppCompatActivity {
         tvName = (TextView) findViewById(R.id.tvName);
         tvAddress = (TextView) findViewById(R.id.tvAddress);
         tvOpHrs = (TextView) findViewById(R.id.tvOpHrs);
+        tvRating = (TextView) findViewById(R.id.tvRating);
+        tvWebsite = (TextView) findViewById(R.id.tvWebsite);
+        tvWebsite.setMovementMethod(LinkMovementMethod.getInstance());
 
         fStore = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
         DocumentReference docRef = fStore.collection("supermarkets").document(intent.getStringExtra(SUPERMARKET_ID));
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()) {
@@ -61,6 +70,10 @@ public class ViewSupermarket extends AppCompatActivity {
                         supermarket = doc.toObject(Supermarket.class);
                         tvName.setText(supermarket.getName());
                         tvAddress.setText(supermarket.getAddress());
+
+                        String linkedText = String.format("<a href=\"%s\">Check out deals</a> ", supermarket.getWebsite());
+                        tvWebsite.setText(Html.fromHtml(linkedText));
+                        tvRating.setText(Double.toString(supermarket.getRating()));
                         StringBuilder openingHrs = new StringBuilder();
                         for(int i = 0; i<supermarket.getOpeningHours().size(); i++) {
                             openingHrs.append(supermarket.getOpeningHours().get(i)).append("\n");

@@ -39,4 +39,11 @@
     <string name="save">Save</string>
     <string name="opening_hours">Opening Hours</string>
     <string name="search_recipes">Search Recipes</string>
+    <string name="rating">Rating:</string>
+    <string name="recipes">Recipes</string>
+    <string name="find_recipes_by_specifying_your_desired_macros">Find recipes by specifying your desired macros</string>
+    <string name="max_carbs">Max carbs</string>
+    <string name="max_protein">Max protein</string>
+    <string name="max_fat">Max fat</string>
+    <string name="find_recipes">Find Recipes</string>
 </resources>

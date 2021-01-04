@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchRecipes"></activity>
+        <activity android:name=".ViewRecipe"></activity>
+        <activity android:name=".FindRecipes" />
         <activity android:name=".ViewSupermarket" />
         <activity
             android:name=".Home"

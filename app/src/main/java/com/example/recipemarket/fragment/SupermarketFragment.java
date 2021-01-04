@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import com.example.recipemarket.R;
 import com.example.recipemarket.adapter.SupermarketAdapter;
 import com.example.recipemarket.model.Supermarket;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -95,34 +96,38 @@ public class SupermarketFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         fStore = FirebaseFirestore.getInstance();
-        fStore.collection("user_supermarket")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {
-                            for(QueryDocumentSnapshot doc: task.getResult()) {
-                                if(doc.getData().get("user_id").equals(user.getUid())) {
-                                    supermarketIds.add((String)doc.getData().get("supermarket_id"));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                fStore.collection("user_supermarket")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    for(QueryDocumentSnapshot doc: task.getResult()) {
+                                        if(doc.getData().get("user_id").equals(user.getUid())) {
+                                            supermarketIds.add((String)doc.getData().get("supermarket_id"));
+                                        }
+                                    }
+                                fStore.collection("supermarkets")
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                for(QueryDocumentSnapshot doc: task.getResult()) {
+                                                    if(supermarketIds.contains(doc.getId())) {
+                                                        Supermarket supermarket = doc.toObject(Supermarket.class);
+                                                        supermarkets.add(supermarket);
+                                                    }
+                                                }
+                                                setUpRcv();
+                                            }
+                                        });
                                 }
-                            }
-                        }
-                    }
-                });
-        fStore.collection("supermarkets")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for(QueryDocumentSnapshot doc: task.getResult()) {
-                            if(supermarketIds.contains(doc.getId())) {
-                                Supermarket supermarket = doc.toObject(Supermarket.class);
-                                supermarkets.add(supermarket);
-                            }
-                        }
-                        setUpRcv();
-                    }
-                });
+                        });
+            }
+        }).start();
+
     }
 
     public void setUpRcv() {
@@ -133,7 +138,6 @@ public class SupermarketFragment extends Fragment {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL) {
             @Override
             public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
-                // Do not draw the divider
             }
         });
         mRecyclerView.setAdapter(mAdapter);
