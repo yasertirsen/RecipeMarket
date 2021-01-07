@@ -46,4 +46,11 @@
     <string name="max_protein">Max protein</string>
     <string name="max_fat">Max fat</string>
     <string name="find_recipes">Find Recipes</string>
+    <string name="fat">Fat:</string>
+    <string name="protein">Protein:</string>
+    <string name="carbs">Carbs:</string>
+    <string name="nutrition">Nutrition:</string>
+    <string name="todo">TODO</string>
+    <string name="clear_list">Clear list</string>
+    <string name="add_ingredients_to_shopping_list">Add ingredients to shopping list</string>
 </resources>

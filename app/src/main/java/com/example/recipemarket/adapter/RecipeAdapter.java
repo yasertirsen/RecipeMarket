@@ -15,13 +15,18 @@ import com.example.recipemarket.model.Recipe;
 
 import java.util.ArrayList;
 
-public class RecipeAdapter  extends RecyclerView.Adapter<RecipeAdapter.MyViewHolder> {
+import static com.example.recipemarket.fragment.RecipeFragment.CARBS;
+import static com.example.recipemarket.fragment.RecipeFragment.FAT;
+import static com.example.recipemarket.fragment.RecipeFragment.PROTEIN;
+
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHolder> {
 
     private ArrayList<Recipe> recipes;
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public static final String RECIPE_ID = "RECIPE_ID";
+        public static final String CALORIES = "CALORIES";
         public TextView tvTitle;
         public TextView tvCalories;
 
@@ -36,9 +41,12 @@ public class RecipeAdapter  extends RecyclerView.Adapter<RecipeAdapter.MyViewHol
         public void onClick(View v) {
             int position = this.getLayoutPosition();
             Recipe recipe = recipes.get(position);
-
             Intent intent = new Intent(v.getContext(), ViewRecipe.class);
             intent.putExtra(RECIPE_ID, recipe.getId());
+            intent.putExtra(CARBS, recipe.getCarbs());
+            intent.putExtra(PROTEIN, recipe.getProtein());
+            intent.putExtra(FAT, recipe.getFat());
+            intent.putExtra(CALORIES, recipe.getCalories());
             v.getContext().startActivity(intent);
         }
     }

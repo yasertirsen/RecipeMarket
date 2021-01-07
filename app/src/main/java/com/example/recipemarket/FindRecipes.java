@@ -47,7 +47,7 @@ public class FindRecipes extends AppCompatActivity {
         String fat = recipeIntent.getStringExtra(FAT);
 
         final RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = "https://api.spoonacular.com/recipes/findByNutrients?maxFat=" + fat + "&maxCarbs=" + carbs + "&maxProtein=" + protein + "&number=4&apiKey=4dece4815fcb41b8991c80539cabb3a8";
+        String url = "https://api.spoonacular.com/recipes/findByNutrients?maxFat=" + fat + "&maxCarbs=" + carbs + "&maxProtein=" + protein + "&number=10&apiKey=4dece4815fcb41b8991c80539cabb3a8";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

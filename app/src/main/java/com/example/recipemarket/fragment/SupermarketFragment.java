@@ -42,6 +42,7 @@ public class SupermarketFragment extends Fragment {
     private ArrayList<String> supermarketIds = new ArrayList<>();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private SupermarketAdapter mAdapter;
+    private RecyclerView mRecyclerView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,39 +100,43 @@ public class SupermarketFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                fStore.collection("user_supermarket")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(mRecyclerView == null) {
+                    fStore.collection("user_supermarket")
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                     for(QueryDocumentSnapshot doc: task.getResult()) {
                                         if(doc.getData().get("user_id").equals(user.getUid())) {
                                             supermarketIds.add((String)doc.getData().get("supermarket_id"));
                                         }
                                     }
-                                fStore.collection("supermarkets")
-                                        .get()
-                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                for(QueryDocumentSnapshot doc: task.getResult()) {
-                                                    if(supermarketIds.contains(doc.getId())) {
-                                                        Supermarket supermarket = doc.toObject(Supermarket.class);
-                                                        supermarkets.add(supermarket);
+                                    fStore.collection("supermarkets")
+                                            .get()
+                                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                    for(QueryDocumentSnapshot doc: task.getResult()) {
+                                                        if(supermarketIds.contains(doc.getId())) {
+                                                            Supermarket supermarket = doc.toObject(Supermarket.class);
+                                                            supermarkets.add(supermarket);
+                                                        }
                                                     }
+                                                    setUpRcv();
                                                 }
-                                                setUpRcv();
-                                            }
-                                        });
+                                            });
                                 }
-                        });
+                            });
+                }
+                else
+                    setUpRcv();
             }
         }).start();
 
     }
 
     public void setUpRcv() {
-        RecyclerView mRecyclerView = (RecyclerView) mView.findViewById(R.id.rvSupermarkets);
+        mRecyclerView = (RecyclerView) mView.findViewById(R.id.rvSupermarkets);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         mAdapter = new SupermarketAdapter(supermarkets);

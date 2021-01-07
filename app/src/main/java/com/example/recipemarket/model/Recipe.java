@@ -1,5 +1,6 @@
 package com.example.recipemarket.model;
 
+import java.util.List;
 import java.util.Map;
 
 public class Recipe {
@@ -9,7 +10,8 @@ public class Recipe {
     private String carbs;
     private String protein;
     private String fat;
-    private String url;
+    private String instructions;
+    private List<String> ingredients;
 
     public Recipe() {
     }
@@ -62,11 +64,19 @@ public class Recipe {
         this.fat = fat;
     }
 
-    public String getUrl() {
-        return url;
+    public String getInstructions() {
+        return instructions;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
+    public List<String> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<String> ingredients) {
+        this.ingredients = ingredients;
     }
 }
