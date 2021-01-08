@@ -18,14 +18,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewShoppingList"></activity>
+        <activity android:name=".SavedRecipes"></activity>
+        <activity android:name=".ViewShoppingList" />
         <activity android:name=".ViewRecipe" />
         <activity android:name=".FindRecipes" />
         <activity android:name=".ViewSupermarket" />
         <activity
             android:name=".Home"
-            android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_home" />
         <activity android:name=".Register" />
         <activity android:name=".MainActivity">
             <intent-filter>

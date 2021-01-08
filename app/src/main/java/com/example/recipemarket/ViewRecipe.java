@@ -185,11 +185,13 @@ public class ViewRecipe extends AppCompatActivity {
                 userRecipe.put("recipe_id", recipe.getId());
 
                 recipeMap.put("id", recipe.getId());
+                recipeMap.put("title", recipe.getTitle());
                 recipeMap.put("calories", recipe.getCalories());
                 recipeMap.put("carbs", recipe.getCarbs());
                 recipeMap.put("protein", recipe.getProtein());
                 recipeMap.put("fat", recipe.getFat());
                 recipeMap.put("instructions", recipe.getInstructions());
+                recipeMap.put("ingredients", ingredients);
             }
 
             DocumentReference recipeDoc = fStore.collection("recipes").document(String.valueOf(recipe.getId()));
